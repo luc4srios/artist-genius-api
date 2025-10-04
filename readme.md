@@ -1,6 +1,6 @@
 # Python - API Genius
 
-Este projeto é uma API REST em Python usando Flask que consome a API do Genius para listar as 10 músicas mais populares de um artista. Foi utilizado Redis (via Docker) para armazenar em cache e DynamoDB/AWS para armazenar as requisições.
+Este projeto é uma API REST em Python usando Flask que consome a API do Genius para listar as 10 músicas mais populares de um artista. Foi utilizado Redis (via Docker) para armazenar em cache e DynamoDB/AWS para armazenar as transações de busca
 
 ## Pré-requisitos
 
@@ -31,21 +31,22 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Configure a variável de ambiente com seu token Genius:
+4. Configure as variáveis de ambiente
+
+Crie o arquivo `.env` a partir do modelo disponivel e insira suas credenciais. (Necessário para conexão com Genius e AWS (DynamoDB))
 
 ```bash
 copy .env.example .env
 ```
-Abra o arquivo .env insira o token e chave de acesso (GENIUS_API_TOKEN, AWS_ACCESS_KEY_ID e AWS_SECRET_ACCESS_KEY)
-
+Abra o arquivo .env criado e adicione suas credenciais nos lugares de SEU_TOKEN_GENIUS, SUA_CHAVE_AWS e SUA_CHAVE_SECRETA
 
 4. Inicialização do Redis (Docker)
+
+Certifique-se de que o Docker Desktop está em execução e inicie o contêiner Redis:
 
 ```bash
 docker run --name genius-redis -p 6379:6379 -d redis
 ```
-Docker Desktop precisa estar em execução nesse momento
-
 
 ## No terminal com o "venv" ativado, inicie o aplicativo Flask:
 
