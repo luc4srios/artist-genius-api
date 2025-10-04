@@ -65,7 +65,7 @@ A API estará disponível em: `http://127.0.0.1:5000`
 * `artista` (obrigatório): nome do artista (usar "-" quando houver espaço no nome)
 * `cache` (opcional, padrão `true`): Use `&cache=false` para forçar a limpeza do cache e a busca no Genius.
 
-#### 1. Primeira Chamada (Força Consulta ao Genius)
+#### 1. Primeira chamada: força consulta ao Genius
 * Esta é a primeira chamada para o artista. O cache e o DynamoDB serão atualizados.
 
 ```
@@ -85,7 +85,7 @@ http://127.0.0.1:5000/musicas?artista=Charlie-brown-jr
 }
 ```
 
-#### 2. Segunda Chamada Imediata
+#### 2. Segunda chamada: resposta imediata
 * Ao chamar a mesma URL novamente, a resposta deve ser quase instantânea e vir do Redis.
 
 ```
@@ -105,7 +105,7 @@ http://127.0.0.1:5000/musicas?artista=Charlie-brown-jr
 }
 ```
 
-#### 3. Limpar Cache e Consultar Genius
+#### 3. Terceira chamada: limpar cache e consumir API Genius
 * O parâmetro cache=false força a limpeza do Redis e realiza uma nova busca no Genius.
 
 ```
