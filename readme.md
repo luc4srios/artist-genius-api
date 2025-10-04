@@ -55,23 +55,60 @@ python app.py
 
 A API estará disponível em: `http://127.0.0.1:5000`
 
-## Endpoints
-
-### GET /musicas
-
-Retorna as 10 músicas mais populares do artista.
+## Testes e Exemplos de Uso
 
 **Parametros:**
 
 * `artista` (obrigatório): nome do artista (usar "-" quando houver espaço no nome)
 
-**Exemplo:**
+### 1. Cache Miss (Primeira Chamada / Força Consulta ao Genius)
+* Esta é a primeira chamada para o artista. O cache e o DynamoDB serão atualizados.
 
 ```
 http://127.0.0.1:5000/musicas?artista=Charlie-brown-jr
 ```
 
-**Resposta esperada:**
+**Resposta esperada (Lenta):**
+
+```json
+{
+  "transaction_id": "uuid-gerado",
+  "data": [
+    {"title": "Como Tudo Deve Ser", "url": "..."},
+    {"title": "Lugar ao Sol", "url": "..."}
+  ],
+  "fonte": "genius"
+}
+```
+
+### 2. Cache Hit (Segunda Chamada Imediata)
+* Ao chamar a mesma URL novamente, a resposta deve ser quase instantânea e vir do Redis.
+
+```
+http://127.0.0.1:5000/musicas?artista=Charlie-brown-jr
+```
+
+**Resposta esperada (Instantânea):**
+
+```json
+{
+  "transaction_id": "uuid-gerado",
+  "data": [
+    {"title": "Como Tudo Deve Ser", "url": "..."},
+    {"title": "Lugar ao Sol", "url": "..."}
+  ],
+  "fonte": "cache"
+}
+```
+
+### 3. Force Update (Limpar Cache e Consultar Genius)
+* O parâmetro cache=false força a limpeza do Redis e realiza uma nova busca no Genius, **gerando um NOVO `transaction_id`**.
+
+```
+http://127.0.0.1:5000/musicas?artista=Charlie-brown-jr&cache=false
+```
+
+**Resposta esperada (Lenta):**
 
 ```json
 {
