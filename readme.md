@@ -1,7 +1,6 @@
 # Python - API Genius
 
-Este projeto é uma API REST em Python usando Flask que consome a API do Genius.
-Passado o nome de um artista, a API retorna as 10 músicas mais populares do artista pesquisado.
+Este projeto é uma API REST em Python usando Flask que consome a API do Genius para listar as 10 músicas mais populares de um artista. Foi utilizado Redis (via Docker) para armazenar em cache e DynamoDB/AWS para armazenar as requisições.
 
 ## Pré-requisitos
 
@@ -13,7 +12,7 @@ Passado o nome de um artista, a API retorna as 10 músicas mais populares do art
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/seuusuario/artist-genius-api.git
+git clone https://github.com/luc4srios/artist-genius-api.git
 cd artist-genius-api
 ```
 
@@ -35,9 +34,18 @@ pip install -r requirements.txt
 ```bash
 copy .env.example .env
 ```
-Abra o .env e substitua SEU_TOKEN_AQUI pelo seu token real do Genius:
+Abra o arquivo .env insira o token e chave de acesso (GENIUS_API_TOKEN, AWS_ACCESS_KEY_ID e AWS_SECRET_ACCESS_KEY)
 
-## Rodando a API
+
+4. Inicialização do Redis (Docker)
+
+```bash
+docker run --name genius-redis -p 6379:6379 -d redis
+```
+Docker Desktop precisa estar em execução nesse momento
+
+
+## No terminal com o "venv" ativado, inicie o aplicativo Flask:
 
 ```bash
 python app.py

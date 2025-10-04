@@ -7,11 +7,12 @@ GENIUS_API_TOKEN = os.getenv("GENIUS_API_TOKEN")
 HEADERS = {"Authorization": f"Bearer {GENIUS_API_TOKEN}"}
 
 if not GENIUS_API_TOKEN:
-    raise ValueError("GENIUS_API_TOKEN não foi configurada")
+    raise ValueError("genius_api_token não foi configurada")
 
 def get_songs(artista, max_results=10):
     url = "https://api.genius.com/search"
     params = {"q": artista}
+
     response = requests.get(url, headers=HEADERS, params=params)
 
     if response.status_code != 200:
