@@ -1,14 +1,20 @@
 import boto3
 import os
 
-aws_key = os.getenv("AWS_ACCESS_KEY_ID")
-aws_secret = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_KEY = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET = os.getenv("AWS_SECRET_ACCESS_KEY")
+
+if not AWS_KEY:
+    raise ValueError("AWS_KEY não foi configurada")
+
+if not AWS_SECRET:
+    raise ValueError("AWS_SECRET não foi configurada")
 
 dynamodb = boto3.resource(
     'dynamodb',
     region_name='sa-east-1',
-    aws_access_key_id=aws_key,
-    aws_secret_access_key=aws_secret
+    aws_access_key_id=AWS_KEY,
+    aws_secret_access_key=AWS_SECRET
 )
 
 table = dynamodb.Table('Musicas')

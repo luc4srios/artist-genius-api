@@ -48,7 +48,7 @@ def get_musicas():
     }
 
     save_dynamo(payload)
-    set_cache(artista, musicas, transaction_id)
+    set_cache(artista, musicas)
 
     return jsonify({
         "transaction_id": transaction_id,
