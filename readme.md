@@ -5,7 +5,9 @@ Este projeto é uma API REST em Python usando Flask que consome a API do Genius 
 ## Pré-requisitos
 
 * Python 3.10+
-* Token de acesso da API Genius (crie em [https://genius.com/developers](https://genius.com/developers))
+* Docker Desktop (Necessário para rodar o serviço Redis)
+* Token de acesso API Genius
+* Credenciais AWS
 
 ## Configuração
 
