@@ -192,6 +192,6 @@ http://127.0.0.1:5000/musicas?artista=Charlie-brown-jr&cache=false
 
 ## Documentação da API
 
-A API possui documentação interativa no Swagger, que permite testar os endpoints diretamente do navegador.
+A API possui documentação interativa no Swagger e que permite testar diretamente por ela.
 
 Acesse em: [http://127.0.0.1:5000/docs/](http://127.0.0.1:5000/docs/)
