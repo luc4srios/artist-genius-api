@@ -3,24 +3,22 @@ import os
 
 AWS_KEY = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_REGION = os.getenv("AWS_REGION")
 
-if not AWS_KEY:
-    raise ValueError("AWS_KEY não foi configurada")
-
-if not AWS_SECRET:
-    raise ValueError("AWS_SECRET não foi configurada")
+if not AWS_KEY or not AWS_SECRET or not AWS_REGION:
+    raise ValueError("Credenciais AWS (KEY, SECRET e REGION) não foram configuradas. Verifique o arquivo .env.")
 
 dynamodb = boto3.resource(
     'dynamodb',
-    region_name='sa-east-1',
+    region_name=AWS_REGION,
     aws_access_key_id=AWS_KEY,
     aws_secret_access_key=AWS_SECRET
 )
 
-table = dynamodb.Table('Musicas')
+table = dynamodb.Table('artist_genius_traces')
 
 def save_dynamo(payload):
-    table = dynamodb.Table("Musicas")
+    table = dynamodb.Table("artist_genius_traces")
     try:
         table.put_item(Item=payload)
         print(f"Transação {payload.get('transaction_id')} salva no DynamoDB.")
